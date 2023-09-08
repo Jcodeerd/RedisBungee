@@ -54,12 +54,7 @@ public class InitialUtils {
             public Void unifiedJedisTask(UnifiedJedis unifiedJedis) {
                 Path crashFile = dataFolder.resolve("restarted_from_crash.txt");
                 if (Files.exists(crashFile)) {
-                    try {
-                        Files.delete(crashFile);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                    plugin.logInfo("crash file was deleted continuing RedisBungee startup ");
+                    plugin.logInfo("Crash file was found, continuing RedisBungee startup ");
                 } else if (unifiedJedis.hexists("heartbeats", plugin.getConfiguration().getProxyId())) {
                     try {
                         long value = Long.parseLong(unifiedJedis.hget("heartbeats", plugin.getConfiguration().getProxyId()));
